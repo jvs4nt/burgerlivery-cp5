@@ -1,11 +1,11 @@
 import { createContext, useState } from "react";
 
 type OrderContextProps = {
-  appettizer: any;
-  hamburger: any;
-  combo: any;
-  dessert: any;
-  beverage: any;
+  appettizer: [];
+  hamburger: [];
+  combo: [];
+  dessert: [];
+  beverage: [];
   totalValue: number;
 };
 
@@ -16,14 +16,14 @@ interface OrderContextProviderProps {
 }
 
 const OrderContextProvider = ({ children }: OrderContextProviderProps) => {
-  const [appettizer, setAppettizer] = useState();
+  const [appettizerOrder, setAppettizerOrder] = useState([]);
   const [hamburgerOrder, setHamburgerOrder] = useState([]);
 
   return (
     <OrderContext.Provider
       value={{
-        appettizer,
-        setAppettizer,
+        appettizerOrder,
+        setAppettizerOrder,
         hamburgerOrder,
         setHamburgerOrder,
       }}

@@ -1,17 +1,24 @@
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, ShoppingCart } from "..";
 import { ShoppingCartButton, UserMenuElement } from "./UserMenu.style";
 import ShoppingCartIcon from "../../assets/shoppingCart.svg";
-import { useContext, useState } from "react";
-import OrderContext from "../../context/OrderContext";
+// import OrderContext from "../../context/OrderContext";
 
 export const UserMenu = () => {
-  const { hamburgerOrder } = useContext(OrderContext);
+  // const { hamburgerOrder } = useContext(OrderContext);
+  const navigate = useNavigate();
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const token = false;
+  const token = sessionStorage.getItem("userToken");
 
   const handleOpen = () => {
     setIsDrawerOpen(true);
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("userToken");
+    navigate("/");
   };
 
   return (
@@ -27,7 +34,9 @@ export const UserMenu = () => {
         </>
       ) : (
         <>
+          <span>Meus pedidos</span>
           <span>Ubirajara</span>
+          <span onClick={handleLogout}>Sair</span>
         </>
       )}
       <ShoppingCartButton onClick={handleOpen}>

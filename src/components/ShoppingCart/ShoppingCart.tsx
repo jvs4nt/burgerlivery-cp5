@@ -9,11 +9,19 @@ interface ShoppingCartProps {
 }
 
 export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
-  const { hamburgerOrder } = useContext(OrderContext);
+  const { hamburgerOrder, appettizerOrder } = useContext(OrderContext);
 
   return (
     <ShoppingCartElement open={isOpen}>
       <h1>Carrinho de compras</h1>
+      <div>
+        {appettizerOrder.map((appettizer, index) => (
+          <p key={index}>
+            {appettizer.name} - {appettizer.size}{" "}
+            {priceFormat(appettizer.value)}
+          </p>
+        ))}
+      </div>
       <div>
         {hamburgerOrder.map((hamburger, index) => (
           <p key={index}>
@@ -23,7 +31,6 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
       </div>
       <div>
         <p>Total</p>
-        <p></p>
       </div>
     </ShoppingCartElement>
   );

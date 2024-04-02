@@ -4,6 +4,7 @@ export * from "./Footer/Footer";
 export * from "./Header/Header";
 export * from "./Layout/Layout";
 export * from "./MainMenu/MainMenu";
+export * from "./PrivateRoutes/PrivateRoutes";
 export * from "./ProductCard/ProductCard";
 export * from "./ShoppingCart/ShoppingCart";
 export * from "./Submenu/Submenu";
