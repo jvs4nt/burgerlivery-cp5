@@ -27,24 +27,40 @@ const OrderContextProvider = ({ children }: OrderContextProviderProps) => {
 
   const [appettizerOrder, setAppettizerOrder] = useState([]);
   const [hamburgerOrder, setHamburgerOrder] = useState([]);
-  const [subTotal, setSubTotal] = useState([]);
+  const [beveregeOrder, setBeveregeOrder] = useState([]);
   const [order, setOrder] = useState(inicialOrder);
 
-  const sumValues = (values) => {
+  const sumValues = (arrayValues) => {
+    return arrayValues.reduce(
+      (acumulador, valorAtual) => acumulador + Number(valorAtual),
+      0
+    );
+  };
+
+  const getPrices = (values) => {
     const result = values.map((item) => item.value);
     return result;
   };
 
   useEffect(() => {
+    const subTotalHamburgers = getPrices(hamburgerOrder);
+    const subTotalAppetizer = getPrices(appettizerOrder);
+    const subTotalBeverege = getPrices(beveregeOrder);
+    const subtotal = subTotalHamburgers.concat(
+      subTotalAppetizer,
+      subTotalBeverege
+    );
+
     const internalOrder = {
       ...order,
       ["hamburger"]: hamburgerOrder,
       ["appettizer"]: appettizerOrder,
+      ["beverege"]: beveregeOrder,
+      totalValue: sumValues(subtotal),
     };
 
-    const subTotalHamburgers = sumValues(hamburgerOrder);
-    const subTotalAppetizer = sumValues(appettizerOrder);
-    const subtotal = subTotalHamburgers.concat(subTotalAppetizer);
+    console.log(subtotal);
+    console.log(internalOrder);
 
     setOrder(internalOrder);
   }, [hamburgerOrder, appettizerOrder, setOrder]);
@@ -56,6 +72,8 @@ const OrderContextProvider = ({ children }: OrderContextProviderProps) => {
         setAppettizerOrder,
         hamburgerOrder,
         setHamburgerOrder,
+        beveregeOrder,
+        setBeveregeOrder,
         order,
         setOrder,
       }}

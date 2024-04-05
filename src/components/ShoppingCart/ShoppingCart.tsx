@@ -31,7 +31,7 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
         ))}
       </div>
       <div>
-        <p>Total: {order.totalValue}</p>
+        <p>Total: {priceFormat(order.totalValue)}</p>
       </div>
     </ShoppingCartElement>
   );
