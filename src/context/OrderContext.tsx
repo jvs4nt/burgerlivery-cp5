@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 type OrderContextProps = {
   appettizer: [];
@@ -16,8 +16,38 @@ interface OrderContextProviderProps {
 }
 
 const OrderContextProvider = ({ children }: OrderContextProviderProps) => {
+  const inicialOrder = {
+    appettizer: [],
+    hamburger: [],
+    combo: [],
+    dessert: [],
+    beverage: [],
+    totalValue: 0,
+  };
+
   const [appettizerOrder, setAppettizerOrder] = useState([]);
   const [hamburgerOrder, setHamburgerOrder] = useState([]);
+  const [subTotal, setSubTotal] = useState([]);
+  const [order, setOrder] = useState(inicialOrder);
+
+  const sumValues = (values) => {
+    const result = values.map((item) => item.value);
+    return result;
+  };
+
+  useEffect(() => {
+    const internalOrder = {
+      ...order,
+      ["hamburger"]: hamburgerOrder,
+      ["appettizer"]: appettizerOrder,
+    };
+
+    const subTotalHamburgers = sumValues(hamburgerOrder);
+    const subTotalAppetizer = sumValues(appettizerOrder);
+    const subtotal = subTotalHamburgers.concat(subTotalAppetizer);
+
+    setOrder(internalOrder);
+  }, [hamburgerOrder, appettizerOrder, setOrder]);
 
   return (
     <OrderContext.Provider
@@ -26,6 +56,8 @@ const OrderContextProvider = ({ children }: OrderContextProviderProps) => {
         setAppettizerOrder,
         hamburgerOrder,
         setHamburgerOrder,
+        order,
+        setOrder,
       }}
     >
       {children}

@@ -9,7 +9,8 @@ interface ShoppingCartProps {
 }
 
 export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
-  const { hamburgerOrder, appettizerOrder } = useContext(OrderContext);
+  const { hamburgerOrder, appettizerOrder, order, setOrder } =
+    useContext(OrderContext);
 
   return (
     <ShoppingCartElement open={isOpen}>
@@ -30,7 +31,7 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
         ))}
       </div>
       <div>
-        <p>Total</p>
+        <p>Total: {order.totalValue}</p>
       </div>
     </ShoppingCartElement>
   );

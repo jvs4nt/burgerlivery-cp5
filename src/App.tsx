@@ -14,7 +14,7 @@ export default function App() {
       <Suspense fallback={<h1>Carregando</h1>}>
         <Routes>
           <Route path="/" element={<LazyHome />} />
-          <Route path="/entradinhas" element={<LazyAppetizers />} />
+          <Route path="/entradas" element={<LazyAppetizers />} />
           <Route path="/hamburgers" element={<LazyHamburgers />} />
           <Route path="/login" element={<LazyLogin />} />
           <Route element={<PrivateRoutes />}>
