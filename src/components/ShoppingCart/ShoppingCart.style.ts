@@ -53,3 +53,16 @@ export const CloseButton = styled.button`
   margin: 0;
   border-radius: 100%;
 `;
+
+export const TotalDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 36px;
+  padding: 0;
+`;
+
+export const Total = styled.p`
+  font-size: 24px;
+  font-weight: bold;
+`;

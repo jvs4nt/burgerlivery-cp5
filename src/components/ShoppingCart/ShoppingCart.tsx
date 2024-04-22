@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import OrderContext from "../../context/OrderContext";
-import { ShoppingCartCheckout, ShoppingCartElement, RemoveButton, CloseButton } from "./ShoppingCart.style"; // Supondo que você tenha importado um estilo para o botão de remover
+import { ShoppingCartCheckout, ShoppingCartElement, RemoveButton, CloseButton, TotalDiv, Total } from "./ShoppingCart.style"; // Supondo que você tenha importado um estilo para o botão de remover
 import { priceFormat } from "../../helpers/priceFormat";
 import { useNavigate } from "react-router-dom";
 
@@ -90,9 +90,9 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
           </div>
         ))}
       </div>
-      <div>
-        <p>Total: {priceFormat(order.totalValue)}</p>
-      </div>
+      <TotalDiv>
+        <Total>Total: {priceFormat(order.totalValue)}</Total>
+      </TotalDiv>
       <ShoppingCartCheckout onClick={handleCheckout}>CHECKOUT</ShoppingCartCheckout>
     </ShoppingCartElement>
   );
