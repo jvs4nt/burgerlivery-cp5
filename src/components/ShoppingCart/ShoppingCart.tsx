@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import OrderContext from "../../context/OrderContext";
 import { ShoppingCartCheckout, ShoppingCartElement, RemoveButton, CloseButton, TotalDiv, Total } from "./ShoppingCart.style"; // Supondo que você tenha importado um estilo para o botão de remover
 import { priceFormat } from "../../helpers/priceFormat";
@@ -11,7 +11,7 @@ interface ShoppingCartProps {
 
 export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
 
-  
+  const [totalValue, setTotalValue] = useState(0);
   
   const { hamburgerOrder, appettizerOrder, comboOrder, beverageOrder, dessertOrder, order, setOrder } =
     useContext(OrderContext);
@@ -22,9 +22,38 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
     navigate("/checkout");
   }
 
-  const handleRemoveItem = (index) => {
+  const handleRemoveHamburguer = (index) => {
     const updateOrder = () => {
       order.hamburger.splice(index, 1);
+    };
+    updateOrder();
+    setOrder({ ...order});
+    setTotalValue(calculateTotalValue());
+  };
+  const handleRemoveCombo = (index) => {
+    const updateOrder = () => {
+      order.combo.splice(index, 1);
+    };
+    updateOrder();
+    setOrder({ ...order});
+  };
+  const handleRemoveAppetizer = (index) => {
+    const updateOrder = () => {
+      order.appetizer.splice(index, 1);
+    };
+    updateOrder();
+    setOrder({ ...order});
+  };
+  const handleRemoveDessert = (index) => {
+    const updateOrder = () => {
+      order.dessert.splice(index, 1);
+    };
+    updateOrder();
+    setOrder({ ...order});
+  };
+  const handleRemoveBeverage = (index) => {
+    const updateOrder = () => {
+      order.beverage.splice(index, 1);
     };
     updateOrder();
     setOrder({ ...order});
@@ -39,7 +68,7 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
           <div key={index}>
             <p>
               {appettizer.name} - {appettizer.size} {priceFormat(appettizer.value)}
-              <RemoveButton onClick={() => handleRemoveItem(index)}>X</RemoveButton>
+              <RemoveButton onClick={() => handleRemoveAppetizer(index)}>X</RemoveButton>
             </p>
             
           </div>
@@ -50,7 +79,7 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
           <div key={index}>
             <p>
               {hamburger.name} {priceFormat(hamburger.value)}
-              <RemoveButton onClick={() => handleRemoveItem(index)}>X</RemoveButton>
+              <RemoveButton onClick={() => handleRemoveHamburguer(index)}>X</RemoveButton>
             </p>
             
           </div>
@@ -61,7 +90,7 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
           <div key={index}>
             <p>
               {dessert.name} {priceFormat(dessert.value)}
-              <RemoveButton onClick={() => handleRemoveItem(index)}>X</RemoveButton>
+              <RemoveButton onClick={() => handleRemoveDessert(index)}>X</RemoveButton>
             </p>
             
           </div>
@@ -72,7 +101,7 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
           <div key={index}>
             <p>
               COMBO {combo.name} {priceFormat(combo.value)}
-              <RemoveButton onClick={() => handleRemoveItem(index)}>X</RemoveButton>
+              <RemoveButton onClick={() => handleRemoveCombo(index)}>X</RemoveButton>
             </p>
             
           </div>
@@ -84,7 +113,7 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
           <div key={index}>
             <p>
               {beverage.name} {priceFormat(beverage.value)}
-              <RemoveButton onClick={() => handleRemoveItem(index)}>X</RemoveButton>
+              <RemoveButton onClick={() => handleRemoveBeverage(index)}>X</RemoveButton>
             </p>
             
           </div>

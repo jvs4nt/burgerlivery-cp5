@@ -12,6 +12,42 @@ export default function Checkout() {
     setPaymentMethod(event.target.value);
   };
 
+  const handleRemoveHamburguer = (index) => {
+    const updateOrder = () => {
+      order.hamburger.splice(index, 1);
+    };
+    updateOrder();
+    setOrder({ ...order});
+  };
+  const handleRemoveCombo = (index) => {
+    const updateOrder = () => {
+      order.combo.splice(index, 1);
+    };
+    updateOrder();
+    setOrder({ ...order});
+  };
+  const handleRemoveAppetizer = (index) => {
+    const updateOrder = () => {
+      order.appetizer.splice(index, 1);
+    };
+    updateOrder();
+    setOrder({ ...order});
+  };
+  const handleRemoveDessert = (index) => {
+    const updateOrder = () => {
+      order.dessert.splice(index, 1);
+    };
+    updateOrder();
+    setOrder({ ...order});
+  };
+  const handleRemoveBeverage = (index) => {
+    const updateOrder = () => {
+      order.beverage.splice(index, 1);
+    };
+    updateOrder();
+    setOrder({ ...order});
+  };
+
   const handleFinishOrder = () => {
     console.log("Produtos:");
     console.log("--------------------");
@@ -21,7 +57,7 @@ export default function Checkout() {
     });
     console.log("--------------------");
 
-    console.log("Hambúrgueres:");
+    console.log("Hamburguers:");
     hamburgerOrder.forEach((hamburger) => {
       console.log(`${hamburger.name}: ${priceFormat(hamburger.value)}`);
     });
@@ -53,35 +89,35 @@ export default function Checkout() {
         <ul>
           {comboOrder.map((combo, index) => (
             <li key={index}>
-              COMBO {combo.name} - R${combo.value} <RemoveButton>X</RemoveButton>
+              COMBO {combo.name} - R${combo.value} <RemoveButton onClick={handleRemoveCombo}>X</RemoveButton>
             </li>
           ))}
         </ul>
         <ul>
           {hamburgerOrder.map((hamburger, index) => (
             <li key={index}>
-              {hamburger.name} - R${hamburger.value} <RemoveButton>X</RemoveButton>
+              {hamburger.name} - R${hamburger.value} <RemoveButton onClick={handleRemoveHamburguer}>X</RemoveButton>
             </li>
           ))}
         </ul>
         <ul>
           {appettizerOrder.map((appetizer, index) => (
             <li key={index}>
-              {appetizer.name} - R${appetizer.value} <RemoveButton>X</RemoveButton>
+              {appetizer.name} - R${appetizer.value} <RemoveButton onClick={handleRemoveAppetizer}>X</RemoveButton>
             </li>
           ))}
         </ul>
         <ul>
           {beverageOrder.map((beverage, index) => (
             <li key={index}>
-              {beverage.name} - R${beverage.value} <RemoveButton>X</RemoveButton>
+              {beverage.name} - R${beverage.value} <RemoveButton onClick={handleRemoveBeverage}>X</RemoveButton>
             </li>
           ))}
         </ul>
         <ul>
           {dessertOrder.map((dessert, index) => (
             <li key={index}>
-              {dessert.name} - R${dessert.value} <RemoveButton>X</RemoveButton>
+              {dessert.name} - R${dessert.value} <RemoveButton onClick={handleRemoveDessert}>X</RemoveButton>
             </li>
           ))}
         </ul>
