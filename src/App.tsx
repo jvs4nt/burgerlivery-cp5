@@ -5,6 +5,8 @@ import { PrivateRoutes } from "./components";
 const LazyHome = lazy(() => import("./pages/Home/Home"));
 const LazyHamburgers = lazy(() => import("./pages/Hamburgers/Hamburgers"));
 const LazyAppetizers = lazy(() => import("./pages/Appetizers/Appetizers"));
+const LazyCombos = lazy(() => import("./pages/Combos/Combos"));
+//const LazyBeverages = lazy(() => import("./pages/Beverages/Beverages"));
 const LazyLogin = lazy(() => import("./pages/Login/Login"));
 const LazyCheckout = lazy(() => import("./pages/Checkout/Checkout"));
 
@@ -16,6 +18,7 @@ export default function App() {
           <Route path="/" element={<LazyHome />} />
           <Route path="/entradas" element={<LazyAppetizers />} />
           <Route path="/hamburgers" element={<LazyHamburgers />} />
+          <Route path="/combos" element={<LazyCombos />} />
           <Route path="/login" element={<LazyLogin />} />
           {/* <Route element={<PrivateRoutes />}> */}
             <Route path="/checkout" element={<LazyCheckout />} />
