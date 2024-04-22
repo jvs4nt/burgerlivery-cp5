@@ -2,7 +2,7 @@ import { Layout } from "../../components";
 import { useContext, useState } from "react"; 
 import OrderContext from "../../context/OrderContext";
 import { priceFormat } from "../../helpers/priceFormat";
-import { FinishButton, FinishDiv, PaymentDiv, RemoveButton, SelectPayment } from "./Checkout.style";
+import { FinishButton, FinishDiv, ListItem, PaymentDiv, RemoveButton, SelectPayment } from "./Checkout.style";
 
 export default function Checkout() {
   const { hamburgerOrder, appettizerOrder, beverageOrder, dessertOrder, comboOrder, order, setOrder } = useContext(OrderContext);
@@ -111,37 +111,37 @@ export default function Checkout() {
         <h3>Produtos:</h3>
         <ul>
           {comboOrder.map((combo, index) => (
-            <li key={index}>
+            <ListItem key={index}>
               COMBO {combo.name} - R${combo.value} <RemoveButton onClick={handleRemoveCombo}>X</RemoveButton>
-            </li>
+            </ListItem>
           ))}
         </ul>
         <ul>
           {hamburgerOrder.map((hamburger, index) => (
-            <li key={index}>
+            <ListItem key={index}>
               {hamburger.name} - R${hamburger.value} <RemoveButton onClick={handleRemoveHamburguer}>X</RemoveButton>
-            </li>
+            </ListItem>
           ))}
         </ul>
         <ul>
           {appettizerOrder.map((appetizer, index) => (
-            <li key={index}>
+            <ListItem key={index}>
               {appetizer.name} - R${appetizer.value} <RemoveButton onClick={handleRemoveAppetizer}>X</RemoveButton>
-            </li>
+            </ListItem>
           ))}
         </ul>
         <ul>
           {beverageOrder.map((beverage, index) => (
-            <li key={index}>
+            <ListItem key={index}>
               {beverage.name} - R${beverage.value} <RemoveButton onClick={handleRemoveBeverage}>X</RemoveButton>
-            </li>
+            </ListItem>
           ))}
         </ul>
         <ul>
           {dessertOrder.map((dessert, index) => (
-            <li key={index}>
+            <ListItem key={index}>
               {dessert.name} - R${dessert.value} <RemoveButton onClick={handleRemoveDessert}>X</RemoveButton>
-            </li>
+            </ListItem>
           ))}
         </ul>
       </div>

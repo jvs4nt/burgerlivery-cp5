@@ -23,9 +23,9 @@ export default function App() {
           <Route path="/sobremesas" element={<LazyDeeserts />} />
           <Route path="/combos" element={<LazyCombos />} />
           <Route path="/login" element={<LazyLogin />} />
-          {/* <Route element={<PrivateRoutes />}> */}
+          <Route element={<PrivateRoutes />}>
             <Route path="/checkout" element={<LazyCheckout />} />
-          {/* </Route> */}
+          </Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Suspense>
