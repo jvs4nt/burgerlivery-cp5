@@ -10,8 +10,6 @@ interface ShoppingCartProps {
 }
 
 export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
-
-  const [totalValue, setTotalValue] = useState(0);
   
   const { hamburgerOrder, appettizerOrder, comboOrder, beverageOrder, dessertOrder, order, setOrder } =
     useContext(OrderContext);
@@ -22,41 +20,64 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
     navigate("/checkout");
   }
 
+  const calculateTotalValue = () => {
+    let total = 0;
+    hamburgerOrder.forEach((hamburger) => {
+      total += hamburger.value;
+    });
+    appettizerOrder.forEach((appettizer) => {
+      total += appettizer.value;
+    });
+    dessertOrder.forEach((dessert) => {
+      total += dessert.value;
+    });
+    comboOrder.forEach((combo) => {
+      total += combo.value;
+    });
+    beverageOrder.forEach((beverage) => {
+      total += beverage.value;
+    });
+    return total;
+  }
+
   const handleRemoveHamburguer = (index) => {
     const updateOrder = () => {
       order.hamburger.splice(index, 1);
     };
     updateOrder();
-    setOrder({ ...order});
-    setTotalValue(calculateTotalValue());
+    setOrder({ ...order, totalValue: calculateTotalValue()});
+
   };
   const handleRemoveCombo = (index) => {
     const updateOrder = () => {
       order.combo.splice(index, 1);
     };
     updateOrder();
-    setOrder({ ...order});
+    setOrder({ ...order, totalValue: calculateTotalValue()});
+
   };
   const handleRemoveAppetizer = (index) => {
     const updateOrder = () => {
       order.appetizer.splice(index, 1);
     };
     updateOrder();
-    setOrder({ ...order});
+    setOrder({ ...order, totalValue: calculateTotalValue()});
+
   };
   const handleRemoveDessert = (index) => {
     const updateOrder = () => {
       order.dessert.splice(index, 1);
     };
     updateOrder();
-    setOrder({ ...order});
+    setOrder({ ...order, totalValue: calculateTotalValue()});
+
   };
   const handleRemoveBeverage = (index) => {
     const updateOrder = () => {
       order.beverage.splice(index, 1);
     };
     updateOrder();
-    setOrder({ ...order});
+    setOrder({ ...order, totalValue: calculateTotalValue()});
   };
 
   return (

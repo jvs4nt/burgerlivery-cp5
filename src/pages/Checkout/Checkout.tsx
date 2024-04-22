@@ -2,7 +2,7 @@ import { Layout } from "../../components";
 import { useContext, useState } from "react"; 
 import OrderContext from "../../context/OrderContext";
 import { priceFormat } from "../../helpers/priceFormat";
-import { FinishButton, FinishDiv, PaymentDiv, RemoveButton } from "./Checkout.style";
+import { FinishButton, FinishDiv, PaymentDiv, RemoveButton, SelectPayment } from "./Checkout.style";
 
 export default function Checkout() {
   const { hamburgerOrder, appettizerOrder, beverageOrder, dessertOrder, comboOrder, order, setOrder } = useContext(OrderContext);
@@ -11,41 +11,64 @@ export default function Checkout() {
   const handlePaymentMethodChange = (event) => {
     setPaymentMethod(event.target.value);
   };
+  const calculateTotalValue = () => {
+    let total = 0;
+    hamburgerOrder.forEach((hamburger) => {
+      total += hamburger.value;
+    });
+    appettizerOrder.forEach((appettizer) => {
+      total += appettizer.value;
+    });
+    dessertOrder.forEach((dessert) => {
+      total += dessert.value;
+    });
+    comboOrder.forEach((combo) => {
+      total += combo.value;
+    });
+    beverageOrder.forEach((beverage) => {
+      total += beverage.value;
+    });
+    return total;
+  }
 
   const handleRemoveHamburguer = (index) => {
     const updateOrder = () => {
       order.hamburger.splice(index, 1);
     };
     updateOrder();
-    setOrder({ ...order});
+    setOrder({ ...order, totalValue: calculateTotalValue()});
+
   };
   const handleRemoveCombo = (index) => {
     const updateOrder = () => {
       order.combo.splice(index, 1);
     };
     updateOrder();
-    setOrder({ ...order});
+    setOrder({ ...order, totalValue: calculateTotalValue()});
+
   };
   const handleRemoveAppetizer = (index) => {
     const updateOrder = () => {
       order.appetizer.splice(index, 1);
     };
     updateOrder();
-    setOrder({ ...order});
+    setOrder({ ...order, totalValue: calculateTotalValue()});
+
   };
   const handleRemoveDessert = (index) => {
     const updateOrder = () => {
       order.dessert.splice(index, 1);
     };
     updateOrder();
-    setOrder({ ...order});
+    setOrder({ ...order, totalValue: calculateTotalValue()});
+
   };
   const handleRemoveBeverage = (index) => {
     const updateOrder = () => {
       order.beverage.splice(index, 1);
     };
     updateOrder();
-    setOrder({ ...order});
+    setOrder({ ...order, totalValue: calculateTotalValue()});
   };
 
   const handleFinishOrder = () => {
@@ -125,12 +148,13 @@ export default function Checkout() {
       
       <PaymentDiv>
         <h3>Forma de Pagamento:</h3>
-        <select value={paymentMethod} onChange={handlePaymentMethodChange}>
+        <SelectPayment value={paymentMethod} onChange={handlePaymentMethodChange}>
           <option value="">Selecione...</option>
-          <option value="credit_card">Cartão de Crédito</option>
-          <option value="debit_card">Cartão de Débito</option>
-          <option value="cash">Dinheiro</option>
-        </select>
+          <option value="credito">Cartão de Crédito</option>
+          <option value="debito">Cartão de Débito</option>
+          <option value="dinheiro">Dinheiro</option>
+          <option value="pix">Pix</option>
+        </SelectPayment>
       </PaymentDiv>
 
       <FinishDiv>

@@ -19,23 +19,27 @@ export const FinishButton = styled.button`
   color: black;
   font-size: 16px;
   cursor: pointer;
-  position: relative;
-  bottom: 15px;
-  cursor: pointer;
 `;
 
 
 export const FinishDiv = styled.div`
     display: flex;
     align-items: center;
-    padding: 10px;
-    
-    `;
+    margin-top: 20px;
+`;
 
 export const PaymentDiv = styled.div`
-    
-    padding: 10px;
-    
-    `;
+margin-top: 20px;
+`;
 
+export const SelectPayment = styled.select`
+    width: 40%;
+    padding: 8px;
+    padding-right: 20px;
+    border: 2px solid green;
+    background-color: lightgreen;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+`;
 
