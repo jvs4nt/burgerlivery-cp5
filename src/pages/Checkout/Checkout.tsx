@@ -1,20 +1,40 @@
 import { Layout } from "../../components";
-import { useContext } from "react";
+import { useContext, useState } from "react"; 
 import OrderContext from "../../context/OrderContext";
 import { priceFormat } from "../../helpers/priceFormat";
+import { FinishButton, RemoveButton } from "./Checkout.style";
 
 export default function Checkout() {
   const { hamburgerOrder, appettizerOrder, order, setOrder } = useContext(OrderContext);
-  
+  const [paymentMethod, setPaymentMethod] = useState(""); 
+
+  const handlePaymentMethodChange = (event) => {
+    setPaymentMethod(event.target.value);
+  };
+
+  const handleFinishOrder = () => {
+    console.log("Produtos:");
+    console.log("Hambúrgueres:");
+    hamburgerOrder.forEach((hamburger) => {
+      console.log(`${hamburger.name}: ${priceFormat(hamburger.value)}`);
+    });
+    console.log("Aperitivos:");
+    appettizerOrder.forEach((appetizer) => {
+      console.log(`${appetizer.name}: ${priceFormat(appetizer.value)}`);
+    });
+    console.log("Valor Total:", priceFormat(order.totalValue));
+    console.log("Forma de Pagamento:", paymentMethod);
+  };
+
   return (
     <Layout>
       <h1>Checkout</h1>
       <div>
-        <h3>Hamburguers:</h3>
+        <h3>Hambúrgueres:</h3>
         <ul>
           {hamburgerOrder.map((hamburger, index) => (
             <li key={index}>
-              {hamburger.name}
+              {hamburger.name} - R${hamburger.value} <RemoveButton>X</RemoveButton>
             </li>
           ))}
         </ul>
@@ -24,7 +44,7 @@ export default function Checkout() {
         <ul>
           {appettizerOrder.map((appetizer, index) => (
             <li key={index}>
-              {appetizer.name}
+              {appetizer.name} - R${appetizer.value} <RemoveButton>X</RemoveButton>
             </li>
           ))}
         </ul>
@@ -33,6 +53,16 @@ export default function Checkout() {
         <h3>Total:</h3>
         <h1>{priceFormat(order.totalValue)}</h1>
       </div>
+      <div>
+        <h3>Forma de Pagamento:</h3>
+        <select value={paymentMethod} onChange={handlePaymentMethodChange}>
+          <option value="">Selecione...</option>
+          <option value="credit_card">Cartão de Crédito</option>
+          <option value="debit_card">Cartão de Débito</option>
+          <option value="cash">Dinheiro</option>
+        </select>
+      </div>
+      <FinishButton onClick={handleFinishOrder}>Finalizar</FinishButton>
     </Layout>
   );
 }

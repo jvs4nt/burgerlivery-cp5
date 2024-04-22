@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import OrderContext from "../../context/OrderContext";
-import { ShoppingCartCheckout, ShoppingCartElement } from "./ShoppingCart.style";
+import { ShoppingCartCheckout, ShoppingCartElement, RemoveButton } from "./ShoppingCart.style"; // Supondo que você tenha importado um estilo para o botão de remover
 import { priceFormat } from "../../helpers/priceFormat";
 import { useNavigate } from "react-router-dom";
 
@@ -9,35 +9,60 @@ interface ShoppingCartProps {
   onClose: () => void;
 }
 
-
-
 export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
+
+  
   
   const { hamburgerOrder, appettizerOrder, order, setOrder } =
     useContext(OrderContext);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const handleCheckout = () => {
-      navigate("/checkout");
-    }
+  const handleCheckout = () => {
+    navigate("/checkout");
+  }
+
+  const handleRemoveAppettizer = (indexToRemove: number) => {
+    const updatedOrder = appettizerOrder.filter((_, index) => index !== indexToRemove);
+    setOrder(prevOrder => ({
+      ...prevOrder,
+      appettizerOrder: updatedOrder
+    }));
+    console.log(updatedOrder);
+  };
+
+  const handleRemoveHamburger = (indexToRemove: number) => {
+    const updatedOrder = hamburgerOrder.filter((_, index) => index !== indexToRemove);
+    setOrder(prevOrder => ({
+      ...prevOrder,
+      hamburgerOrder: updatedOrder
+    }));
+    console.log(updatedOrder);
+  };
 
   return (
     <ShoppingCartElement open={isOpen}>
       <h1>Carrinho de compras</h1>
       <div>
         {appettizerOrder.map((appettizer, index) => (
-          <p key={index}>
-            {appettizer.name} - {appettizer.size}{" "}
-            {priceFormat(appettizer.value)}
-          </p>
+          <div key={index}>
+            <p>
+              {appettizer.name} - {appettizer.size} {priceFormat(appettizer.value)}
+              <RemoveButton onClick={() => handleRemoveAppettizer(index)}>X</RemoveButton>
+            </p>
+            
+          </div>
         ))}
       </div>
       <div>
         {hamburgerOrder.map((hamburger, index) => (
-          <p key={index}>
-            {hamburger.name} {priceFormat(hamburger.value)}
-          </p>
+          <div key={index}>
+            <p>
+              {hamburger.name} {priceFormat(hamburger.value)}
+              <RemoveButton onClick={() => handleRemoveHamburger(index)}>X</RemoveButton>
+            </p>
+            
+          </div>
         ))}
       </div>
       <div>

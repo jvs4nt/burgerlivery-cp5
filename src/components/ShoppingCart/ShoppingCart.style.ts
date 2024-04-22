@@ -30,3 +30,13 @@ export const ShoppingCartCheckout = styled.button`
   position: absolute;
   bottom: 15px;
 `;
+
+export const RemoveButton = styled.button`
+  background-color: red;
+  color: ${colors.commom.white};
+  border: none;
+  padding: 2px;
+  margin-left: 8px;
+  cursor: pointer;
+  margin: 0;
+`;
