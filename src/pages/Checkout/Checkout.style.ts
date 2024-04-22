@@ -19,9 +19,23 @@ export const FinishButton = styled.button`
   color: black;
   font-size: 16px;
   cursor: pointer;
-  position: absolute;
+  position: relative;
   bottom: 15px;
   cursor: pointer;
 `;
+
+
+export const FinishDiv = styled.div`
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    
+    `;
+
+export const PaymentDiv = styled.div`
+    
+    padding: 10px;
+    
+    `;
 
 

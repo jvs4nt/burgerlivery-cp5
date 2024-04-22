@@ -13,7 +13,7 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
 
   
   
-  const { hamburgerOrder, appettizerOrder, comboOrder, beverageOrder, order, setOrder } =
+  const { hamburgerOrder, appettizerOrder, comboOrder, beverageOrder, dessertOrder, order, setOrder } =
     useContext(OrderContext);
 
   const navigate = useNavigate();
@@ -22,22 +22,12 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
     navigate("/checkout");
   }
 
-  const handleRemoveAppettizer = (indexToRemove: number) => {
-    const updatedOrder = appettizerOrder.filter((_, index) => index !== indexToRemove);
-    setOrder(prevOrder => ({
-      ...prevOrder,
-      appettizerOrder: updatedOrder
-    }));
-    console.log(updatedOrder);
-  };
-
-  const handleRemoveHamburger = (indexToRemove: number) => {
-    const updatedOrder = hamburgerOrder.filter((_, index) => index !== indexToRemove);
-    setOrder(prevOrder => ({
-      ...prevOrder,
-      hamburgerOrder: updatedOrder
-    }));
-    console.log(updatedOrder);
+  const handleRemoveItem = (index) => {
+    const updateOrder = () => {
+      order.hamburger.splice(index, 1);
+    };
+    updateOrder();
+    setOrder({ ...order});
   };
 
   return (
@@ -48,7 +38,7 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
           <div key={index}>
             <p>
               {appettizer.name} - {appettizer.size} {priceFormat(appettizer.value)}
-              <RemoveButton onClick={() => handleRemoveAppettizer(index)}>X</RemoveButton>
+              <RemoveButton onClick={() => handleRemoveItem(index)}>X</RemoveButton>
             </p>
             
           </div>
@@ -59,7 +49,18 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
           <div key={index}>
             <p>
               {hamburger.name} {priceFormat(hamburger.value)}
-              <RemoveButton onClick={() => handleRemoveHamburger(index)}>X</RemoveButton>
+              <RemoveButton onClick={() => handleRemoveItem(index)}>X</RemoveButton>
+            </p>
+            
+          </div>
+        ))}
+      </div>
+      <div>
+        {dessertOrder.map((dessert, index) => (
+          <div key={index}>
+            <p>
+              {dessert.name} {priceFormat(dessert.value)}
+              <RemoveButton onClick={() => handleRemoveItem(index)}>X</RemoveButton>
             </p>
             
           </div>
@@ -70,7 +71,7 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
           <div key={index}>
             <p>
               COMBO {combo.name} {priceFormat(combo.value)}
-              <RemoveButton onClick={() => handleRemoveHamburger(index)}>X</RemoveButton>
+              <RemoveButton onClick={() => handleRemoveItem(index)}>X</RemoveButton>
             </p>
             
           </div>
@@ -82,7 +83,7 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
           <div key={index}>
             <p>
               {beverage.name} {priceFormat(beverage.value)}
-              <RemoveButton onClick={() => handleRemoveHamburger(index)}>X</RemoveButton>
+              <RemoveButton onClick={() => handleRemoveItem(index)}>X</RemoveButton>
             </p>
             
           </div>

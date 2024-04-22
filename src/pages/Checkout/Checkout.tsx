@@ -2,10 +2,10 @@ import { Layout } from "../../components";
 import { useContext, useState } from "react"; 
 import OrderContext from "../../context/OrderContext";
 import { priceFormat } from "../../helpers/priceFormat";
-import { FinishButton, RemoveButton } from "./Checkout.style";
+import { FinishButton, FinishDiv, PaymentDiv, RemoveButton } from "./Checkout.style";
 
 export default function Checkout() {
-  const { hamburgerOrder, appettizerOrder, beverageOrder, comboOrder, order, setOrder } = useContext(OrderContext);
+  const { hamburgerOrder, appettizerOrder, beverageOrder, dessertOrder, comboOrder, order, setOrder } = useContext(OrderContext);
   const [paymentMethod, setPaymentMethod] = useState(""); 
 
   const handlePaymentMethodChange = (event) => {
@@ -36,6 +36,11 @@ export default function Checkout() {
       console.log(`${beverage.name}: ${priceFormat(beverage.value)}`);
     });
     console.log("--------------------");
+    console.log("Sobremesas:");
+    dessertOrder.forEach((dessert) => {
+      console.log(`${dessert.name}: ${priceFormat(dessert.value)}`);
+    });
+    console.log("--------------------");
     console.log("Valor Total:", priceFormat(order.totalValue));
     console.log("Forma de Pagamento:", paymentMethod);
   };
@@ -44,7 +49,7 @@ export default function Checkout() {
     <Layout>
       <h1>Checkout</h1>
       <div>
-        <h3>Combos:</h3>
+        <h3>Produtos:</h3>
         <ul>
           {comboOrder.map((combo, index) => (
             <li key={index}>
@@ -52,9 +57,6 @@ export default function Checkout() {
             </li>
           ))}
         </ul>
-      </div>
-      <div>
-        <h3>Hambúrgueres:</h3>
         <ul>
           {hamburgerOrder.map((hamburger, index) => (
             <li key={index}>
@@ -62,9 +64,6 @@ export default function Checkout() {
             </li>
           ))}
         </ul>
-      </div>
-      <div>
-        <h3>Aperitivos:</h3>
         <ul>
           {appettizerOrder.map((appetizer, index) => (
             <li key={index}>
@@ -72,9 +71,6 @@ export default function Checkout() {
             </li>
           ))}
         </ul>
-      </div>
-      <div>
-        <h3>Bebidas:</h3>
         <ul>
           {beverageOrder.map((beverage, index) => (
             <li key={index}>
@@ -82,12 +78,16 @@ export default function Checkout() {
             </li>
           ))}
         </ul>
+        <ul>
+          {dessertOrder.map((dessert, index) => (
+            <li key={index}>
+              {dessert.name} - R${dessert.value} <RemoveButton>X</RemoveButton>
+            </li>
+          ))}
+        </ul>
       </div>
-      <div>
-        <h3>Total:</h3>
-        <h1>{priceFormat(order.totalValue)}</h1>
-      </div>
-      <div>
+      
+      <PaymentDiv>
         <h3>Forma de Pagamento:</h3>
         <select value={paymentMethod} onChange={handlePaymentMethodChange}>
           <option value="">Selecione...</option>
@@ -95,7 +95,12 @@ export default function Checkout() {
           <option value="debit_card">Cartão de Débito</option>
           <option value="cash">Dinheiro</option>
         </select>
-      </div>
+      </PaymentDiv>
+
+      <FinishDiv>
+        <h3>Total:</h3>
+        <h1>{priceFormat(order.totalValue)}</h1>
+      </FinishDiv>
       <FinishButton onClick={handleFinishOrder}>Finalizar</FinishButton>
     </Layout>
   );
