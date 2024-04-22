@@ -11,7 +11,7 @@ interface ShoppingCartProps {
 
 export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
   
-  const { hamburgerOrder, appettizerOrder, comboOrder, beverageOrder, dessertOrder, order, setOrder } =
+  const { hamburgerOrder, appetizerOrder, comboOrder, beverageOrder, dessertOrder, order, setOrder } =
     useContext(OrderContext);
 
   const navigate = useNavigate();
@@ -25,8 +25,8 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
     hamburgerOrder.forEach((hamburger) => {
       total += hamburger.value;
     });
-    appettizerOrder.forEach((appettizer) => {
-      total += appettizer.value;
+    appetizerOrder.forEach((appetizer) => {
+      total += appetizer.value;
     });
     dessertOrder.forEach((dessert) => {
       total += dessert.value;
@@ -85,10 +85,10 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
       <CloseButton onClick={onClose}>x</CloseButton>
       <h1>Carrinho de compras</h1>
       <div>
-        {appettizerOrder.map((appettizer, index) => (
+        {appetizerOrder.map((appetizer, index) => (
           <div key={index}>
             <p>
-              {appettizer.name} - {appettizer.size} {priceFormat(appettizer.value)}
+              {appetizer.name} - {appetizer.size} {priceFormat(appetizer.value)}
               <RemoveButton onClick={() => handleRemoveAppetizer(index)}>X</RemoveButton>
             </p>
             

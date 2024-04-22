@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 
 type OrderContextProps = {
-  appettizer: [];
+  appetizer: [];
   hamburger: [];
   combo: [];
   dessert: [];
@@ -17,7 +17,7 @@ interface OrderContextProviderProps {
 
 const OrderContextProvider = ({ children }: OrderContextProviderProps) => {
   const inicialOrder = {
-    appettizer: [],
+    appetizer: [],
     hamburger: [],
     combo: [],
     dessert: [],
@@ -25,7 +25,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderProps) => {
     totalValue: 0,
   };
 
-  const [appettizerOrder, setAppettizerOrder] = useState([]);
+  const [appetizerOrder, setAppetizerOrder] = useState([]);
   const [hamburgerOrder, setHamburgerOrder] = useState([]);
   const [comboOrder, setComboOrder] = useState([]);
   const [beverageOrder, setBeverageOrder] = useState([]);
@@ -46,7 +46,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderProps) => {
 
   useEffect(() => {
     const subTotalHamburgers = getPrices(hamburgerOrder);
-    const subTotalAppetizer = getPrices(appettizerOrder);
+    const subTotalAppetizer = getPrices(appetizerOrder);
     const subTotalCombo = getPrices(comboOrder);
     const subTotalBeverage = getPrices(beverageOrder);
     const subTotalDessert = getPrices(dessertOrder);
@@ -60,7 +60,7 @@ const OrderContextProvider = ({ children }: OrderContextProviderProps) => {
     const internalOrder = {
       ...order,
       ["hamburger"]: hamburgerOrder,
-      ["appettizer"]: appettizerOrder,
+      ["appetizer"]: appetizerOrder,
       ["combo"]: comboOrder,
       ["beverage"]: beverageOrder,
       ["dessert"]: dessertOrder,
@@ -71,13 +71,13 @@ const OrderContextProvider = ({ children }: OrderContextProviderProps) => {
     console.log(internalOrder);
 
     setOrder(internalOrder);
-  }, [hamburgerOrder, appettizerOrder, beverageOrder, dessertOrder, comboOrder, setOrder]);
+  }, [hamburgerOrder, appetizerOrder, beverageOrder, dessertOrder, comboOrder, setOrder]);
 
   return (
     <OrderContext.Provider
       value={{
-        appettizerOrder,
-        setAppettizerOrder,
+        appetizerOrder,
+        setAppetizerOrder,
         hamburgerOrder,
         setHamburgerOrder,
         comboOrder,

@@ -9,7 +9,7 @@ import { priceFormat } from "../../helpers/priceFormat";
 import OrderContext from "../../context/OrderContext";
 
 export default function Appetizers() {
-  const { appettizerOrder, setAppettizerOrder } = useContext(OrderContext);
+  const { appetizerOrder, setAppetizerOrder } = useContext(OrderContext);
 
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -67,7 +67,7 @@ export default function Appetizers() {
       image: filteredProduct[0].image,
     };
 
-    setAppettizerOrder([...appettizerOrder, orderProduct]);
+    setAppetizerOrder([...appetizerOrder, orderProduct]);
   };
 
   useEffect(() => {

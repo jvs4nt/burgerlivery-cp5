@@ -5,7 +5,7 @@ import { priceFormat } from "../../helpers/priceFormat";
 import { FinishButton, FinishDiv, ListItem, PaymentDiv, RemoveButton, SelectPayment } from "./Checkout.style";
 
 export default function Checkout() {
-  const { hamburgerOrder, appettizerOrder, beverageOrder, dessertOrder, comboOrder, order, setOrder } = useContext(OrderContext);
+  const { hamburgerOrder, appetizerOrder, beverageOrder, dessertOrder, comboOrder, order, setOrder } = useContext(OrderContext);
   const [paymentMethod, setPaymentMethod] = useState(""); 
 
   const handlePaymentMethodChange = (event) => {
@@ -16,8 +16,8 @@ export default function Checkout() {
     hamburgerOrder.forEach((hamburger) => {
       total += hamburger.value;
     });
-    appettizerOrder.forEach((appettizer) => {
-      total += appettizer.value;
+    appetizerOrder.forEach((appetizer) => {
+      total += appetizer.value;
     });
     dessertOrder.forEach((dessert) => {
       total += dessert.value;
@@ -86,7 +86,7 @@ export default function Checkout() {
     });
     console.log("--------------------");
     console.log("Aperitivos:");
-    appettizerOrder.forEach((appetizer) => {
+    appetizerOrder.forEach((appetizer) => {
       console.log(`${appetizer.name}: ${priceFormat(appetizer.value)}`);
     });
     console.log("--------------------");
@@ -124,7 +124,7 @@ export default function Checkout() {
           ))}
         </ul>
         <ul>
-          {appettizerOrder.map((appetizer, index) => (
+          {appetizerOrder.map((appetizer, index) => (
             <ListItem key={index}>
               {appetizer.name} - R${appetizer.value} <RemoveButton onClick={handleRemoveAppetizer}>X</RemoveButton>
             </ListItem>
