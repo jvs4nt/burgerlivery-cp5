@@ -13,7 +13,7 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
 
   
   
-  const { hamburgerOrder, appettizerOrder, comboOrder, order, setOrder } =
+  const { hamburgerOrder, appettizerOrder, comboOrder, beverageOrder, order, setOrder } =
     useContext(OrderContext);
 
   const navigate = useNavigate();
@@ -70,6 +70,18 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
           <div key={index}>
             <p>
               COMBO {combo.name} {priceFormat(combo.value)}
+              <RemoveButton onClick={() => handleRemoveHamburger(index)}>X</RemoveButton>
+            </p>
+            
+          </div>
+        ))}
+      </div>
+
+      <div>
+        {beverageOrder.map((beverage, index) => (
+          <div key={index}>
+            <p>
+              {beverage.name} {priceFormat(beverage.value)}
               <RemoveButton onClick={() => handleRemoveHamburger(index)}>X</RemoveButton>
             </p>
             

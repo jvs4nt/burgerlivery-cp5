@@ -9,9 +9,9 @@ import OrderContext from "../../context/OrderContext";
 import { priceFormat } from "../../helpers/priceFormat";
 import { useNavigate } from "react-router-dom";
 
-export default function Combos() {
+export default function Beverages() {
   const navigate = useNavigate();
-  const { comboOrder, setComboOrder } = useContext(OrderContext);
+  const { beverageOrder, setBeverageOrder } = useContext(OrderContext);
 
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -33,8 +33,8 @@ export default function Combos() {
     }
   };
 
-  const getCombos = async () => {
-    const url = "http://localhost:8000/hamburgers";
+  const getBeverages = async () => {
+    const url = "http://localhost:8000/beverages";
     setIsLoading(true);
 
     try {
@@ -65,27 +65,27 @@ export default function Combos() {
     }
 
     return () => {
-      getCombos();
+      getBeverages();
     };
   }, []);
 
-  const handleAdd = (productValue: number) => {
+  const handleAdd = (productTitle: string) => {
     const filteredProduct = products.filter(
-      (product) => product.values.combo === productValue
+      (product) => product.title === productTitle
     );
 
     const orderProduct = {
       name: filteredProduct[0].title,
-      value: filteredProduct[0].values.combo,
+      value: filteredProduct[0].value,
       image: filteredProduct[0].image[0],
     };
 
-    setComboOrder([...comboOrder, orderProduct]);
- };
+    setBeverageOrder([...beverageOrder, orderProduct]);
+  };
 
   return (
     <Layout>
-      <h1>Combos</h1>
+      <h1>Bebidas</h1>
       <ProductCategories>
         {isLoading ? (
           <p>Carregando</p>
@@ -102,16 +102,16 @@ export default function Combos() {
           products.map((product, index) => (
             <ProductCard key={index}>
               <ProductCardContent>
-                <h2>COMBO {product.title}</h2>
-                <p>{product.description} + BATATA FRITA E BEBIDA DE SUA ESCOLHA</p>
-                <Button onClick={() => handleAdd(product.values.combo)}>
+                <h2>{product.title}</h2>
+                <p>{product.description}</p>
+                <Button onClick={() => handleAdd(product.title)}>
                   Adicionar
                 </Button>
               </ProductCardContent>
               <ProductCardPrice>
-                {priceFormat(product.values.combo)}
+                {priceFormat(product.value)}
               </ProductCardPrice>
-              <img src={product.image[0]} alt={product.title} />
+              <img src={product.image} alt={product.title} />
             </ProductCard>
           ))
         )}

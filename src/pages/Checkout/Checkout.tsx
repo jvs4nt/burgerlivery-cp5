@@ -5,7 +5,7 @@ import { priceFormat } from "../../helpers/priceFormat";
 import { FinishButton, RemoveButton } from "./Checkout.style";
 
 export default function Checkout() {
-  const { hamburgerOrder, appettizerOrder, comboOrder, order, setOrder } = useContext(OrderContext);
+  const { hamburgerOrder, appettizerOrder, beverageOrder, comboOrder, order, setOrder } = useContext(OrderContext);
   const [paymentMethod, setPaymentMethod] = useState(""); 
 
   const handlePaymentMethodChange = (event) => {
@@ -14,18 +14,28 @@ export default function Checkout() {
 
   const handleFinishOrder = () => {
     console.log("Produtos:");
+    console.log("--------------------");
     console.log("Combos:");
     comboOrder.forEach((combo) => {
       console.log(`COMBO ${combo.name}: ${priceFormat(combo.value)}`);
     });
+    console.log("--------------------");
+
     console.log("Hambúrgueres:");
     hamburgerOrder.forEach((hamburger) => {
       console.log(`${hamburger.name}: ${priceFormat(hamburger.value)}`);
     });
+    console.log("--------------------");
     console.log("Aperitivos:");
     appettizerOrder.forEach((appetizer) => {
       console.log(`${appetizer.name}: ${priceFormat(appetizer.value)}`);
     });
+    console.log("--------------------");
+    console.log("Bebidas:");
+    beverageOrder.forEach((beverage) => {
+      console.log(`${beverage.name}: ${priceFormat(beverage.value)}`);
+    });
+    console.log("--------------------");
     console.log("Valor Total:", priceFormat(order.totalValue));
     console.log("Forma de Pagamento:", paymentMethod);
   };
@@ -59,6 +69,16 @@ export default function Checkout() {
           {appettizerOrder.map((appetizer, index) => (
             <li key={index}>
               {appetizer.name} - R${appetizer.value} <RemoveButton>X</RemoveButton>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3>Bebidas:</h3>
+        <ul>
+          {beverageOrder.map((beverage, index) => (
+            <li key={index}>
+              {beverage.name} - R${beverage.value} <RemoveButton>X</RemoveButton>
             </li>
           ))}
         </ul>
