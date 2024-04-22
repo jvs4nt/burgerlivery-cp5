@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import OrderContext from "../../context/OrderContext";
-import { ShoppingCartCheckout, ShoppingCartElement, RemoveButton } from "./ShoppingCart.style"; // Supondo que você tenha importado um estilo para o botão de remover
+import { ShoppingCartCheckout, ShoppingCartElement, RemoveButton, CloseButton } from "./ShoppingCart.style"; // Supondo que você tenha importado um estilo para o botão de remover
 import { priceFormat } from "../../helpers/priceFormat";
 import { useNavigate } from "react-router-dom";
 
@@ -32,6 +32,7 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
 
   return (
     <ShoppingCartElement open={isOpen}>
+      <CloseButton onClick={onClose}>x</CloseButton>
       <h1>Carrinho de compras</h1>
       <div>
         {appettizerOrder.map((appettizer, index) => (

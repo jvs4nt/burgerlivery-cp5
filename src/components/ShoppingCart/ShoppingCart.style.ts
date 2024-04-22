@@ -40,3 +40,16 @@ export const RemoveButton = styled.button`
   cursor: pointer;
   margin: 0;
 `;
+
+export const CloseButton = styled.button`
+  background-color: red;
+  color: ${colors.commom.white};
+  border: none;
+  padding: 2px;
+  width: 30px;
+  height: 30px;
+  margin-left: 8px;
+  cursor: pointer;
+  margin: 0;
+  border-radius: 100%;
+`;
