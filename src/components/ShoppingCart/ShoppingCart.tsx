@@ -12,6 +12,7 @@ interface ShoppingCartProps {
 
 
 export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
+  
   const { hamburgerOrder, appettizerOrder, order, setOrder } =
     useContext(OrderContext);
 
