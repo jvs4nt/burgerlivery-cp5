@@ -5,7 +5,7 @@ import { priceFormat } from "../../helpers/priceFormat";
 import { FinishButton, RemoveButton } from "./Checkout.style";
 
 export default function Checkout() {
-  const { hamburgerOrder, appettizerOrder, order, setOrder } = useContext(OrderContext);
+  const { hamburgerOrder, appettizerOrder, comboOrder, order, setOrder } = useContext(OrderContext);
   const [paymentMethod, setPaymentMethod] = useState(""); 
 
   const handlePaymentMethodChange = (event) => {
@@ -14,6 +14,10 @@ export default function Checkout() {
 
   const handleFinishOrder = () => {
     console.log("Produtos:");
+    console.log("Combos:");
+    comboOrder.forEach((combo) => {
+      console.log(`COMBO ${combo.name}: ${priceFormat(combo.value)}`);
+    });
     console.log("Hambúrgueres:");
     hamburgerOrder.forEach((hamburger) => {
       console.log(`${hamburger.name}: ${priceFormat(hamburger.value)}`);
@@ -29,6 +33,16 @@ export default function Checkout() {
   return (
     <Layout>
       <h1>Checkout</h1>
+      <div>
+        <h3>Combos:</h3>
+        <ul>
+          {comboOrder.map((combo, index) => (
+            <li key={index}>
+              COMBO {combo.name} - R${combo.value} <RemoveButton>X</RemoveButton>
+            </li>
+          ))}
+        </ul>
+      </div>
       <div>
         <h3>Hambúrgueres:</h3>
         <ul>
