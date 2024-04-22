@@ -18,3 +18,15 @@ export const ShoppingCartElement = styled.div`
     transform: translateX(0);
     `}
 `;
+
+export const ShoppingCartCheckout = styled.button`
+  width: 90%;
+  padding: 8px;
+  border: none;
+  background-color: ${colors.primary.main};
+  color: black;
+  font-size: 16px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 15px;
+`;

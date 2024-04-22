@@ -1,16 +1,25 @@
 import { useContext } from "react";
 import OrderContext from "../../context/OrderContext";
-import { ShoppingCartElement } from "./ShoppingCart.style";
+import { ShoppingCartCheckout, ShoppingCartElement } from "./ShoppingCart.style";
 import { priceFormat } from "../../helpers/priceFormat";
+import { useNavigate } from "react-router-dom";
 
 interface ShoppingCartProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+
+
 export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
   const { hamburgerOrder, appettizerOrder, order, setOrder } =
     useContext(OrderContext);
+
+    const navigate = useNavigate();
+
+    const handleCheckout = () => {
+      navigate("/checkout");
+    }
 
   return (
     <ShoppingCartElement open={isOpen}>
@@ -33,6 +42,7 @@ export const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
       <div>
         <p>Total: {priceFormat(order.totalValue)}</p>
       </div>
+      <ShoppingCartCheckout onClick={handleCheckout}>CHECKOUT</ShoppingCartCheckout>
     </ShoppingCartElement>
   );
 };

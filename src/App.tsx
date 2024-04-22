@@ -17,9 +17,9 @@ export default function App() {
           <Route path="/entradas" element={<LazyAppetizers />} />
           <Route path="/hamburgers" element={<LazyHamburgers />} />
           <Route path="/login" element={<LazyLogin />} />
-          <Route element={<PrivateRoutes />}>
+          {/* <Route element={<PrivateRoutes />}> */}
             <Route path="/checkout" element={<LazyCheckout />} />
-          </Route>
+          {/* </Route> */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Suspense>

@@ -7,8 +7,10 @@ import {
 } from "../../components/ProductCard/ProductCard.style";
 import OrderContext from "../../context/OrderContext";
 import { priceFormat } from "../../helpers/priceFormat";
+import { useNavigate } from "react-router-dom";
 
 export default function Hamburgers() {
+  const navigate = useNavigate();
   const { hamburgerOrder, setHamburgerOrder } = useContext(OrderContext);
 
   const [isLoading, setIsLoading] = useState(false);
